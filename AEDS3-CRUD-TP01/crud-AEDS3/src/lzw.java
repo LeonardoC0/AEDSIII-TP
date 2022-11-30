@@ -137,7 +137,7 @@ public class lzw {
                         acabou = true;
                         
                         //salva no arquivo
-                        RandomAccessFile arqComprimido = new RandomAccessFile("contasLZW.db", "rw");
+                        RandomAccessFile arqComprimido = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/contasLZW.db", "rw");
                         arqComprimido.seek(comeco);
                         arqComprimido.setLength(0);
                         for(Byte p : sequenciaCodificada) {
@@ -159,7 +159,7 @@ public class lzw {
         
         public static void descomprimeLZW(RandomAccessFile arq, long comeco) {
             try {
-                RandomAccessFile arqComprimido = new RandomAccessFile("crud-AEDS3/dados/contasLZW.db", "rw");
+                RandomAccessFile arqComprimido = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/contasLZW.db", "rw");
                 if(arqComprimido.length() == 0) {
                     System.out.println("\nArquivo vazio.\n\nAperte enter para continuar.\n");
                     sc.nextLine();

@@ -119,13 +119,13 @@ public class hash {
 			double tamDir;
 						
 			// abre o arquivo de indice hash
-			RandomAccessFile arqHash = new RandomAccessFile("crud-AEDS3/dados/hash.db", "rw");
+			RandomAccessFile arqHash = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/hash.db", "rw");
 			
 			// limpa o arquivo de indice hash
 			arqHash.setLength(0);
 			
 			// abre o arquivo de diretorio
-			RandomAccessFile arqDir = new RandomAccessFile("crud-AEDS3/dados/diretorio.db", "rw");
+			RandomAccessFile arqDir = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/diretorio.db", "rw");
 			
 			// limpa o arquivo de diretorio
 			arqDir.setLength(0);
@@ -507,10 +507,10 @@ public class hash {
 		try {
 			
 			// abre o arquivo de indice hash
-			RandomAccessFile arqHash = new RandomAccessFile("crud-AEDS3/dados/hash.db", "rw");
+			RandomAccessFile arqHash = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/hash.db", "rw");
 			
 			// abre o arquivo de diretorio
-			RandomAccessFile arqDir = new RandomAccessFile("crud-AEDS3/dados/diretorio.db", "rw");
+			RandomAccessFile arqDir = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/diretorio.db", "rw");
 			
 			// salva a profundidade global
 			arqHash.seek(comeco);
@@ -862,10 +862,10 @@ public class hash {
 			
 			// abre os arquivos
 			// abre o arquivo de indice hash
-			RandomAccessFile arqHash = new RandomAccessFile("crud-AEDS3/dados/hash.db", "rw");
+			RandomAccessFile arqHash = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/hash.db", "rw");
 			
 			// abre o arquivo de diretorio
-			RandomAccessFile arqDir = new RandomAccessFile("crud-AEDS3/dados/diretorio.db", "rw");
+			RandomAccessFile arqDir = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/diretorio.db", "rw");
 			
 			// encontra o endereco do bucket no diretorio
 			int profGlobal;
@@ -944,10 +944,10 @@ public class hash {
 			
 			// abre os arquivos
 			// abre o arquivo de indice hash
-			RandomAccessFile arqHash = new RandomAccessFile("crud-AEDS3/dados/hash.db", "rw");
+			RandomAccessFile arqHash = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/hash.db", "rw");
 			
 			// abre o arquivo de diretorio
-			RandomAccessFile arqDir = new RandomAccessFile("crud-AEDS3/dados/diretorio.db", "rw");
+			RandomAccessFile arqDir = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/diretorio.db", "rw");
 			
 			// encontra o endereco do bucket no diretorio
 			int profGlobal;
@@ -1030,10 +1030,10 @@ public class hash {
 			
 			// abre os arquivos
 			// abre o arquivo de indice hash
-			RandomAccessFile arqHash = new RandomAccessFile("crud-AEDS3/dados/hash.db", "rw");
+			RandomAccessFile arqHash = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/hash.db", "rw");
 			
 			// abre o arquivo de diretorio
-			RandomAccessFile arqDir = new RandomAccessFile("crud-AEDS3/dados/diretorio.db", "rw");
+			RandomAccessFile arqDir = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/diretorio.db", "rw");
 			
 			// encontra o endereco do bucket no diretorio
 			int profGlobal;
