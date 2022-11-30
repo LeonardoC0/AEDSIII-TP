@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class application {
 
-    public static String nomeArquivo = "AEDS3-CRUD-TP01/crud-AEDS3/dados/conta.db";
+    public static String nomeArquivo = "crud-AEDS3/dados/conta.db";
 
     public static void main(String[] args) throws Exception {
             Scanner scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class application {
 
         try {
 
-            RandomAccessFile arq = new RandomAccessFile("AEDS3-CRUD-TP01/crud-AEDS3/dados/contas.db", "rw"); 
+            RandomAccessFile arq = new RandomAccessFile("AEDSIII-TP/AEDS3-CRUD-TP01/crud-AEDS3/dados/contas.db", "rw"); 
             comeco = arq.getFilePointer();
             if(arq.length()==0) { 
                 arq.writeInt(-1);
