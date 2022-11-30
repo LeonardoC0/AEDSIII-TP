@@ -9,15 +9,15 @@ import java.util.Random;
 import java.util.Vector;
 
 public class OrdenacaoExterna {
-    final static String nomeArquivo = "AEDSIII-TP/AEDS3-CRUD-TP01/crud-AEDS3/dados/conta.db";
+    final static String nomeArquivo = "dados/conta.db";
     final static String prefixo = ".db";
     final static int ramSize = 4;
     static long ptrControl = 4;
     public static void main(String[] args) {
         dist(5, 2);
-        listAccouts("AEDSIII-TP/AEDS3-CRUD-TP01/crud-AEDS3/dados/tmp0.db");
+        listAccouts("dados/tmp0.db");
         System.out.println("---------------");
-        listAccouts("AEDSIII-TP/AEDS3-CRUD-TP01/crud-AEDS3/dados/tmp1.db");
+        listAccouts("dados/tmp1.db");
     }
     public static void dist(int ram, int caminhos) {
         try {
