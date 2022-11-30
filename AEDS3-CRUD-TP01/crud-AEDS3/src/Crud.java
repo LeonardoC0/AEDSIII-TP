@@ -3,7 +3,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class Crud {
-    final static String nomeArquivo = "conta.db";
+    final static String nomeArquivo = "crud-AEDS3/dados/conta.db";
 
     public static void writeAccount(Conta conta) {
         try {
