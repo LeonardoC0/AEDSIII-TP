@@ -147,7 +147,7 @@ public class Crud {
                     }
                 }
             }
-            arquivo.close();
+            arquivo.close(); 
             return false;
         } catch (Exception e) {
             System.out.println("Erro ao deletar");

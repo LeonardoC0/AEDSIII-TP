@@ -56,6 +56,8 @@ public class application {
             System.out.println("8- Lista Invertida");
             System.out.println("9- Comprime LZW");
             System.out.println("10- Descomprime LZW");
+            System.out.println("11- Comprime Huffman");
+            System.out.println("12- Intercalacao Balanceada");
             System.out.println("0- Sair");
 
             System.out.print("Digite a opcao desejada: ");
@@ -140,6 +142,14 @@ public class application {
                     lzw.descomprimeLZW(arq, comeco);
                     break;
 
+                case 11:
+                    System.out.println("\n\nOpcao escolhida: \n\t11- Comprimir Huffman");
+                    huffman.compressaoHuffman(sc, arq);
+                    break;
+                case 12:
+                    System.out.println("\n\nOpcao escolhida: \n\t11- Comprimir Huffman");
+                    methods.intercalacaoBalanceada(arq, comeco);
+                    break;
                 default:
                     System.out.print("\n\nOpcao invalida!");
                     break;

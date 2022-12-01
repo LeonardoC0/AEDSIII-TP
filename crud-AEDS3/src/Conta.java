@@ -71,7 +71,7 @@ public class Conta implements Comparable<Conta> {
     }
     
     public Conta(){};   
-    public Conta(int idConta, String nomePessoa, String email, String nomeUsuario, String senha,
+    public Conta(int idConta, String nomePessoa, String string, String nomeUsuario, String senha,
             String cpf, String cidade, int transferenciasRealizadas, float saldoConta) {
         this.idConta = idConta;
         this.nomePessoa = nomePessoa;
@@ -124,8 +124,32 @@ public class Conta implements Comparable<Conta> {
                 + ", saldoConta=" + saldoConta + "]";
     }
     @Override
-    public int compareTo(Conta o) {
+    public int compareTo(Conta o) { 
         return this.idConta - o.idConta;
+    }
+
+    public byte[] toByteArray() throws IOException{
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
+        
+        
+        dos.writeInt(idConta);
+        dos.writeInt(nomePessoa.length());
+        dos.writeUTF(nomePessoa);
+        dos.writeInt(email.length());
+        dos.writeInt(nomeUsuario.length());
+        dos.writeUTF(nomeUsuario);
+        dos.writeInt(senha.length());
+        dos.writeUTF(senha);
+        dos.writeUTF(cpf);
+        dos.writeInt(cidade.length());
+        dos.writeUTF(cidade);
+        dos.writeInt(transferenciasRealizadas);
+        dos.writeFloat(saldoConta);
+        
+        
+        return baos.toByteArray();
     }
 
     
