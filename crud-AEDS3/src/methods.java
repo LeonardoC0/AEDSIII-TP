@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 public class methods {
     public static Scanner sc = new Scanner(System.in);
+	static int numOp;
 
     public methods(){};
 
     public static void criaContaFunc(Scanner scanner){
+		String senhacrypto;
         Conta conta = new Conta();
         System.out.println("Digite seu nome: ");
         conta.nomePessoa = scanner.nextLine();
@@ -19,7 +21,13 @@ public class methods {
         System.out.println("Digite seu nome de usuario:");
         conta.nomeUsuario = scanner.nextLine();
         System.out.println("Digite sua senha:");
-        conta.senha = scanner.nextLine();
+		senhacrypto = scanner.nextLine();
+        try {
+			conta.senha = OneTimePad.encryptionSenha(senhacrypto);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         System.out.println("Digite seu CPF");
         conta.cpf = scanner.nextLine();
         System.out.println("Digite sua cidade:");
@@ -33,6 +41,7 @@ public class methods {
 
     public static void contaPorId (Scanner scanner){
         int idConta;
+		String senhaDecrypto;
 
         System.out.println("Digite a conta de origem: ");
         idConta= scanner.nextInt();
@@ -44,7 +53,14 @@ public class methods {
         System.out.println("Nome: " + conta.nomePessoa);
         System.out.println("Email: " + conta.email);
         System.out.println("Usuario: " + conta.nomeUsuario);
-        System.out.println("Senha: " + conta.senha);
+		senhaDecrypto = conta.senha;
+		try {
+			senhaDecrypto = OneTimePad.decryptionSenha(conta.senha);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println("Senha: " + senhaDecrypto);
         System.out.println("CPF: " + conta.cpf);
         System.out.println("Cidade: " + conta.cidade);
         System.out.println("Numero de Transferencia: " + conta.transferenciasRealizadas);
@@ -591,6 +607,161 @@ public class methods {
 			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void buscarPadrao (RandomAccessFile arq, long comeco) {
+		int idAtual = -1;
+		ArrayList<Integer> contasEncontradas = new ArrayList<Integer>();
+		int ultimaId;
+		
+		try {
+			arq.seek(comeco);
+			ultimaId = arq.readInt();
+			
+			// pergunta para o usuario qual sera o texto a ser procurado
+			System.out.println("\nDigite o texto que deseja buscar: (máximo 64 caracteres)");
+			String padrao = sc.nextLine();
+			
+			// para cada registro no arquivo
+			while(idAtual != ultimaId) {
+				boolean achou = false;
+				numOp = 0;
+				
+				// le o registro
+				int tamReg = arq.readInt(); // tamanho do registro
+				long pos0 = arq.getFilePointer();
+				char lapide = arq.readChar();
+				arq.seek(pos0);
+				Conta conta = leRegistro(arq, comeco, pos0);
+				if(lapide != '*') {
+					idAtual = conta.getIdConta();
+					
+					
+					// checa se o padrao procurado existe no nome
+					if(shiftAnd(conta.getNomePessoa(), padrao)) {
+						achou = true;
+					}
+					
+					// checa se o padrao procurado existe no nome de usuario
+					if(shiftAnd(conta.getNomeUsuario(), padrao)) {
+						achou = true;
+					}
+					
+					// checa se o padrao procurado existe no email
+						if(shiftAnd(conta.getEmail(), padrao)) {
+							achou = true;
+						}
+					
+					
+					// checa se o padrao procurado existe no cpf
+					if(shiftAnd(conta.getCpf(), padrao)) {
+						achou = true;
+					}
+					
+					// checa se o padrao procurado existe na cidade
+					if(shiftAnd(conta.getCidade(), padrao)) {
+						achou = true;
+					}
+					
+					// se achou, adiciona ao array de contas encontradas
+					if(achou) {
+						contasEncontradas.add(conta.getIdConta());
+					}
+				}
+				
+				// pula para o proximo registro
+				arq.seek(pos0);
+				arq.skipBytes(tamReg);
+			}
+			
+			// imprime as contas encontradas
+			System.out.println("\nOperações realizadas: " + numOp);
+			if(contasEncontradas.size() > 0) {
+				System.out.println("\nTexto encontrado nas contas:");
+				for(Integer p : contasEncontradas) {
+					System.out.print(p);
+					if(p != contasEncontradas.get(contasEncontradas.size() -1)) {
+						System.out.print(", ");
+					} else {
+						System.out.println("\n\nAperte enter para continuar.");
+						sc.nextLine();
+					}
+				}
+			} else {
+				System.out.println("\nTexto não encontrado no arquivo.");
+				System.out.println("\nAperte enter para continuar.");
+				sc.nextLine();
+			}
+			
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	
+	public static boolean shiftAnd(String texto, String padrao) { // retorna true se o padrao foi encontrado e false se nao foi
+		boolean encontrou = false;
+		
+		// se o padrao cabe no texto
+		if(texto.length() >= padrao.length()) {
+			
+			// carrega a lista de caracteres para fazer as mascaras
+			String caracteres = "";
+			for(int i=0; i<padrao.length(); i++) {
+				boolean jaTem = false;
+				for(int j=0; j<caracteres.length(); j++) {
+					if(caracteres.charAt(j) == padrao.charAt(i)) {
+						jaTem = true;
+					}
+				}
+				if(!jaTem) {
+					caracteres += padrao.charAt(i);
+				}
+			}
+			
+			// carrega as mascaras
+			long[] mascara = new long[caracteres.length() + 1];
+			for(int i=0; i<mascara.length-1; i++) {
+				mascara[i] = 0;
+				for(int j=0; j<padrao.length(); j++) {
+					if(caracteres.charAt(i) == padrao.charAt(j)) {
+						mascara[i] = mascara[i] | ((long) 1 << (63-j));
+					}
+				}
+			}
+			mascara[caracteres.length()] = 0;
+			
+			// faz o shift-and
+			long resultadoAnterior = (long) 1 << 63;
+			long resultadoAtual;
+			for(int i=0; i<texto.length(); i++) {
+				char caracterAtual = texto.charAt(i);
+				int indiceCharAtual = caracteres.length();
+				for(int j=0; j<caracteres.length(); j++) {
+					if(caracterAtual == caracteres.charAt(j)) {
+						indiceCharAtual = j;
+					}
+				}
+				
+				// faz o and
+				resultadoAtual = resultadoAnterior & mascara[indiceCharAtual];
+				
+				// faz o shift
+				resultadoAnterior = (resultadoAtual >> 1) | ((long) 1 << 63);
+				
+				// verifica se encontrou
+				if((resultadoAtual & ((long) 1 << (63 - (padrao.length() - 1)))) == ((long) 1 << (63 - (padrao.length() - 1)))) {
+					encontrou = true;
+				}
+				
+				numOp++;
+			}
+			
+			return encontrou;
+		} else {
+			return false;
 		}
 	}
 

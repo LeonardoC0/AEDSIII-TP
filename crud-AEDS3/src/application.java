@@ -57,6 +57,7 @@ public class application {
             System.out.println("9- Comprime LZW");
             System.out.println("10- Comprime Huffman");
             System.out.println("11- Intercalacao Balanceada");
+            System.out.println("12- Casamento de Padroes");
             System.out.println("0- Sair");
 
             System.out.print("Digite a opcao desejada: ");
@@ -143,6 +144,10 @@ public class application {
                 case 11:
                     System.out.println("\n\nOpcao escolhida: \n\t11- Comprimir Huffman");
                     methods.intercalacaoBalanceada(arq, comeco);
+                    break;
+                case 12:
+                    System.out.println("\n\nOpcao escolhida: \n\t12- Casamento de Padroes");
+                    methods.buscarPadrao(arq, comeco);
                     break;
                 default:
                     System.out.print("\n\nOpcao invalida!");
