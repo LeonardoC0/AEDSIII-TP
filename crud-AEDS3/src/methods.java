@@ -14,6 +14,8 @@ public class methods {
     public static void criaContaFunc(Scanner scanner){
 		String senhacrypto;
         Conta conta = new Conta();
+		int  id = (int) (Math.random() * 100);
+		conta.idConta = id;
         System.out.println("Digite seu nome: ");
         conta.nomePessoa = scanner.nextLine();
         System.out.println("Digite seu email: ");
