@@ -142,7 +142,7 @@ public class application {
                     huffman.compressaoHuffman(sc, arq);
                     break;
                 case 11:
-                    System.out.println("\n\nOpcao escolhida: \n\t11- Comprimir Huffman");
+                    System.out.println("\n\nOpcao escolhida: \n\t11- Intercalacao Balanceada");
                     methods.intercalacaoBalanceada(arq, comeco);
                     break;
                 case 12:
